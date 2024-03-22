@@ -1,0 +1,106 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.sidebar {
+  opacity: 0;
+  background-color: v.$indigo;
+  height: 0;
+  overflow: hidden;// oculta el sidebar para poder presinar el menu de 3 puntos
+  // de todos los valores el transition-property verifica si cambia el opacity
+  transition-property: opacity; // no se puede animar un display
+  transition-duration: 500ms;
+
+  &.mostrar {
+    padding: 2rem;
+    opacity: 1;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(67, 56, 202, 0.95); // estilacho para hacer el menu transparente
+    @include m.tablet {
+      display: none;
+    }
+  }
+
+  &.ocultar {
+    opacity: 0; // tambien se le agrega la transicion del sidebar
+  }
+
+  @include m.tablet {
+    height: 100%;
+    opacity: 1;
+    padding: 2rem;
+    background-color: v.$indigo;
+  }
+
+  .contenedor-sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 { // Letra UpTask
+      color: v.$blanco;
+      text-align: center;
+      margin: 0;
+    }
+
+    .cerrar-menu { // Incono Cerrar Menu
+      display: flex;
+      justify-content: center;
+      height: 2rem;
+      width: 2rem;
+      img {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      @include m.tablet {
+        display: none;
+      }
+    }
+  }
+
+  .sidebar-nav {
+    margin-top: 5rem;
+    a {
+      color: v.$blanco;
+      display: block;
+      margin-bottom: 1.5rem;
+      padding: .7rem;
+      transition-property: background-color;
+      transition-duration: 450ms;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 2rem;
+      text-align: center;
+
+      &:hover,
+      &.activo{
+        background-color: darken(v.$indigo, 20%);
+        border-radius: .5rem;
+      }
+
+      @include m.tablet {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        text-align: left;
+      }
+    }
+  }
+
+  .cerrar-sesion-mobile {
+    margin-top: 10rem;
+    .cerrar-sesion {
+      text-transform: uppercase;
+      @include m.boton(v.$indigo, v.$blanco);
+    }
+
+    @include m.tablet {
+      display: none;
+    }
+  }
+}
